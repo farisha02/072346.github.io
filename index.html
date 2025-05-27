@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Web Dashboard Assignment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Custom styles for the dashboard */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    /* Hero Section Gradient (Soft Blue) */
+    .hero-bg {
+      background: linear-gradient(135deg, #a7c7e7, #bce0f4);
+    }
+
+    /* Card with Soft Shadows */
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+    }
+
+    /* Card Content */
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    /* Section Background */
+    .about-section {
+      background: #f1f1f1;
+      padding: 2rem 0;
+      border-radius: 12px;
+    }
+
+    /* Title Styling */
+    .about-title {
+      color: #5a99d5;
+    }
+
+    .about-content {
+      color: #4b5563;
+    }
+
+    /* Highlight Text Color */
+    .highlight-text {
+      color: #6db1e1;
+      font-weight: bold;
+    }
+
+    /* Footer Background Color */
+    .footer-bg {
+      background-color: #6db1e1;
+    }
+
+    /* Back Button Styling */
+    .back-btn {
+      background-color: #60a0e5;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #4c89c5;
+    }
+
+    /* Profile Image Circle */
+    .profile-img {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="hero-bg text-white p-6 shadow-md">
+    <h1 class="text-4xl font-bold text-center">Web Dashboard Assignment</h1>
+    <p class="text-lg mt-1 text-center">Developed by: <span class="font-semibold">FARISHA</span></p>
+  </header>
+
+  <!-- Main Content with Sidebar -->
+  <div class="flex flex-grow">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-1/4 bg-white p-6 shadow-md border-r border-gray-300">
+      <div class="text-center">
+        <!-- Profile Image -->
+        <img src="images/farisha.jpg" alt="Farisha" class="mx-auto rounded-full mb-4 shadow profile-img" />
+        <h2 class="text-xl font-semibold mb-1">ABOUT ME</h2>
+      </div>
+
+      <div class="mt-6">
+        <p class="text-sm text-gray-700">
+          <p><strong>NAME:</strong> Nurul Farisha</p>
+          <p><strong>MATRIC NO:</strong> 072346</p>
+          <p><strong>COURSE:</strong> Bachelor of Computer Science (Internet Computing) with Honours</p>
+        </p>
+      </div>
+    </aside>
+
+    <!-- Main Dashboard Links -->
+    <main class="flex-grow p-8">
+      <div class="card p-8 rounded-2xl shadow-xl mb-6">
+        <h2 class="text-2xl font-semibold mb-6 text-rose-500 text-center">📊 Explore My Dashboards</h2>
+        <nav class="flex flex-col gap-4">
+          <a href="weather.html" class="px-6 py-3 bg-indigo-100 text-indigo-800 font-medium rounded-xl hover:bg-indigo-200 transition text-center shadow">
+            🌦️ Weather Dashboard
+          </a>
+          <a href="movies.html" class="px-6 py-3 bg-teal-100 text-teal-800 font-medium rounded-xl hover:bg-teal-200 transition text-center shadow">
+            🎬 Movies Dashboard
+          </a>
+        </nav>
+      </div>
+
+      <!-- My Interests Section -->
+      <section class="about-section text-center mb-6">
+        <h3 class="text-3xl font-bold about-title mb-4">My Interests</h3>
+        <ul class="about-content text-lg list-disc pl-6">
+          <li><i class="fas fa-cloud-showers-heavy text-blue-500"></i> <strong>I love</strong> <strong>rainy days</strong> and the calming atmosphere they bring.</li>
+          <li><i class="fas fa-film text-red-500"></i> <strong>I enjoy watching</strong> <strong>movies</strong>, especially in my free time.</li>
+          <li><i class="fas fa-laptop-code text-green-500"></i> <strong>I am passionate about</strong> <strong>coding</strong> and building projects to improve my skills.</li>
+        </ul>
+      </section>
+
+      <!-- About This Project Section -->
+      <section class="about-section text-center mb-6">
+        <h3 class="text-3xl font-bold about-title mb-4">About This Project</h3>
+        <ul class="about-content text-lg list-disc pl-6">
+          <li><i class="fas fa-cogs text-teal-500"></i> This project features <strong>two interactive dashboards</strong> that display <strong>real-time data</strong>.</li>
+          <li><i class="fas fa-cloud-sun text-blue-500"></i> <strong>Weather Dashboard</strong>: Displays weather forecasts by retrieving data from a public <strong>weather API</strong>.</li>
+          <li><i class="fas fa-film text-red-500"></i> <strong>Movies Dashboard</strong>: Allows users to explore <strong>movie information</strong> and ratings fetched from TheMovieDB API.</li>
+          <li><i class="fas fa-robot text-yellow-500"></i> The dashboards are built with <strong>real-time API integration</strong> to provide <strong>accurate and engaging data</strong> to users.</li>
+        </ul>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-bg text-white text-center py-4 mt-auto">
+    &copy; 2025 FARISHA. All Rights Reserved.
+  </footer>
+
+</body>
+</html>
