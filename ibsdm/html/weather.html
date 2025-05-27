@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Add some custom styles for the chart */
+    canvas {
+      width: 100% !important;
+      height: 350px !important;
+    }
+
+    .chart-container {
+      border-radius: 12px;
+      padding: 15px;
+      background: linear-gradient(135deg, #f3f4f6, #82aafb);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ff6f61;
+      margin-bottom: 15px;
+    }
+
+    .back-btn {
+      background-color: #60a0e5;
+      color: rgb(255, 255, 255);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #4f4357;
+    }
+  </style>
+</head>
+<body class="bg-blue-50 min-h-screen flex flex-col items-center">
+  <div class="max-w-2xl mt-10 p-6 bg-white rounded-xl shadow-md chart-container">
+    <h1 class="chart-title text-center text-white">Weather Monitoring Dashboard</h1>
+    
+    <form id="weatherForm" class="flex mb-4">
+      <input type="text" id="cityInput" class="flex-1 px-3 py-2 border rounded-l" placeholder="Enter city (e.g., London)">
+      <button type="submit" class="bg-blue-500 text-white px-4 rounded-r hover:bg-blue-600">Search</button>
+    </form>
+
+    <div id="weatherResult" class="mb-4"></div>
+    
+    <!-- Chart Canvas -->
+    <canvas id="weatherChart"></canvas>
+
+    <!-- Back to Main Button -->
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </div>
+
+  <script>
+    const apiKey = '1a62f75cc0e791db5be345a41bb2c283'; // <-- Replace with your actual API key
+    const form = document.getElementById('weatherForm');
+    const cityInput = document.getElementById('cityInput');
+    const result = document.getElementById('weatherResult');
+    const chartCanvas = document.getElementById('weatherChart');
+    let chart;
+
+    // Event listener for form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const city = cityInput.value.trim();
+      if (!city) return;
+      result.textContent = 'Loading...';
+
+      // Fetch 5-day forecast from OpenWeather API
+      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+      const res = await fetch(url);
+      if (!res.ok) {
+        result.textContent = 'City not found!';
+        return;
+      }
+      const data = await res.json();
+
+      // Extract daily temperatures and prepare labels
+      const temps = [];
+      const labels = [];
+      for (let i = 0; i < data.list.length; i += 8) {
+        const item = data.list[i];
+        temps.push(item.main.temp);
+        labels.push(new Date(item.dt_txt).toLocaleDateString());
+      }
+
+      result.innerHTML = `
+        <div class="text-lg mb-2 font-semibold">Weather in ${data.city.name}</div>
+        <div>Current: ${temps[0]} °C</div>
+      `;
+
+      // Draw chart (if it already exists, destroy it first)
+      if (chart) chart.destroy();
+      chart = new Chart(chartCanvas, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Temperature (°C)',
+            data: temps,
+            borderColor: 'rgb(59, 130, 246)',
+            fill: false
+          }]
+        },
+        options: { responsive: true }
+      });
+    });
+  </script>
+</body>
+</html>
